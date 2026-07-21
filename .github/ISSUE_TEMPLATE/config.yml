@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussions
+    url: https://github.com/existhink/React-SWC-DDD-TS/discussions
+    about: Ask questions and discuss ideas (e.g. proposing a new library) before opening an issue.

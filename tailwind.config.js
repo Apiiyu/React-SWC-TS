@@ -1,4 +1,9 @@
-/** @type {import('tailwindcss').Config} */
+/**
+ * @description Tailwind v4 auto-detects `content` by scanning source files
+ * from the CSS entrypoint — this file is loaded only via `@config` in
+ * index.css to bridge the theme overrides below into the v4 engine.
+ * @type {import('tailwindcss').Config}
+ */
 export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {

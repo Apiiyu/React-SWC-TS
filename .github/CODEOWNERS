@@ -1,0 +1,16 @@
+# Default owner for everything in the repo.
+
+# Replace with your GitHub handle / team when forking.
+
+- @apiiyu
+
+# Architecture-defining files — changes here shift the conventions the whole
+
+# template teaches, so they warrant a closer look.
+
+/.dependency-cruiser.mjs
+/module.js
+/eslint.config.js
+/vite.config.ts
+/vitest.config.ts
+/docs/adr/

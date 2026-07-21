@@ -1,0 +1,44 @@
+version: 2
+updates:
+  # Keep the exact-pinned deps fresh — the pins are intentional (reproducible
+  # installs), so Dependabot is the mechanism that stops them going stale like
+  # the original all-"latest" manifest did.
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    groups:
+      # One PR per ecosystem cluster instead of a flood of single-dep PRs.
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+          - "react-router-dom"
+      storybook:
+        patterns:
+          - "storybook"
+          - "@storybook/*"
+          - "eslint-plugin-storybook"
+      tooling:
+        patterns:
+          - "vite"
+          - "vitest"
+          - "@vitejs/*"
+          - "@vitest/*"
+          - "eslint"
+          - "typescript-eslint"
+          - "prettier"
+    commit-message:
+      prefix: "chore(deps)"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    commit-message:
+      prefix: "chore(ci)"

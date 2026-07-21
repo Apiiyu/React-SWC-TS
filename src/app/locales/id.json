@@ -1,0 +1,12 @@
+{
+  "errors": {
+    "badRequest": "Permintaan Tidak Valid",
+    "unauthorized": "Tidak Diotorisasi",
+    "internalServerError": "Kesalahan Server Internal",
+    "somethingWentWrong": "Terjadi kesalahan"
+  },
+  "errorBoundary": {
+    "title": "Terjadi kesalahan.",
+    "retry": "Coba lagi"
+  }
+}

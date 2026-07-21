@@ -1,0 +1,11 @@
+{
+  "login": {
+    "title": "Masuk",
+    "email": "Email",
+    "password": "Kata Sandi",
+    "submit": "Masuk",
+    "submitting": "Sedang masuk...",
+    "emailInvalid": "Masukkan alamat email yang valid",
+    "passwordTooShort": "Kata sandi minimal 8 karakter"
+  }
+}

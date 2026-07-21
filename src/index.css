@@ -1,8 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap");
+/* Self-hosted via @fontsource — was a render-blocking request to
+   fonts.googleapis.com; self-hosting removes that round trip and the
+   third-party connection entirely. font-display: swap is baked into
+   each of these files already. */
+@import "@fontsource/be-vietnam-pro/300.css";
+@import "@fontsource/be-vietnam-pro/400.css";
+@import "@fontsource/be-vietnam-pro/500.css";
+@import "@fontsource/be-vietnam-pro/600.css";
+@import "@fontsource/be-vietnam-pro/700.css";
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Bridges the existing JS config (screens/fontSize/container overrides)
+   into the v4 engine instead of hand-porting every token into @theme. */
+@config "../tailwind.config.js";
+
+/* Class-based dark mode — toggled via the Zustand theme store, not OS preference. */
+@custom-variant dark (&:where(.dark, .dark *));
 
 .font-be-vietnam {
   font-family: "Be Vietnam Pro", sans-serif;

@@ -1,0 +1,12 @@
+{
+  "errors": {
+    "badRequest": "Bad Request",
+    "unauthorized": "Unauthorized",
+    "internalServerError": "Internal Server Error",
+    "somethingWentWrong": "Something went wrong"
+  },
+  "errorBoundary": {
+    "title": "Something went wrong.",
+    "retry": "Try again"
+  }
+}

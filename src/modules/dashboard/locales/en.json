@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "pricing": "Pricing",
+    "features": "Features",
+    "showcase": "Showcase",
+    "tools": "Tools",
+    "signIn": "Sign In"
+  },
+  "hero": {
+    "headlineLine1": "React SWC with",
+    "headlineLine2": "DDD Pattern.",
+    "subtitle": "No more wasting time browsing around — just follow our best guidance.",
+    "getStarted": "Get Started",
+    "watchStories": "Watch Stories"
+  }
+}

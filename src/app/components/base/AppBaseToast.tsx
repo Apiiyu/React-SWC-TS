@@ -1,3 +1,6 @@
+// Constants
+import { ToastPosition, ToastType } from "@/app/constants/toast.constant";
+
 // Mitt
 import eventBus from "@/plugins/mitt/mitt";
 
@@ -10,8 +13,8 @@ import { useState, useMemo, useEffect } from "react";
 interface IToastProps {
   isOpen: boolean;
   message: string;
-  position: EToastPosition;
-  type: EToastType;
+  position: ToastPosition;
+  type: ToastType;
 }
 
 export const AppBaseToast = () => {
@@ -21,8 +24,8 @@ export const AppBaseToast = () => {
   const [toast, setToast] = useState<IToastProps>({
     isOpen: false,
     message: "",
-    position: EToastPosition.TOP_RIGHT,
-    type: EToastType.SUCCESS,
+    position: ToastPosition.TOP_RIGHT,
+    type: ToastType.SUCCESS,
   });
 
   /**
@@ -30,11 +33,11 @@ export const AppBaseToast = () => {
    */
   const toast_dynamicClassNameBasedOnTypeToast = useMemo((): string => {
     switch (toast.type) {
-      case EToastType.DANGER:
+      case ToastType.DANGER:
         return "text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200";
-      case EToastType.WARNING:
+      case ToastType.WARNING:
         return "text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200";
-      case EToastType.SUCCESS:
+      case ToastType.SUCCESS:
         return "text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200";
       default:
         return "";
@@ -46,13 +49,13 @@ export const AppBaseToast = () => {
    */
   const toast_dynamicClassNameBasedOnPositionToast = useMemo((): string => {
     switch (toast.position) {
-      case EToastPosition.TOP_LEFT:
+      case ToastPosition.TOP_LEFT:
         return "top-5 left-5";
-      case EToastPosition.TOP_RIGHT:
+      case ToastPosition.TOP_RIGHT:
         return "top-5 right-5";
-      case EToastPosition.BOTTOM_LEFT:
+      case ToastPosition.BOTTOM_LEFT:
         return "bottom-5 left-5";
-      case EToastPosition.BOTTOM_RIGHT:
+      case ToastPosition.BOTTOM_RIGHT:
         return "bottom-5 right-5";
       default:
         return "";
@@ -64,11 +67,11 @@ export const AppBaseToast = () => {
    */
   const toast_dynamicDataTarget = useMemo(() => {
     switch (toast.type) {
-      case EToastType.DANGER:
+      case ToastType.DANGER:
         return "#toasts-danger";
-      case EToastType.WARNING:
+      case ToastType.WARNING:
         return "#toast-warning";
-      case EToastType.SUCCESS:
+      case ToastType.SUCCESS:
         return "#toast-success";
       default:
         return "";
@@ -80,9 +83,9 @@ export const AppBaseToast = () => {
    */
   const toast_dynamicIconName = useMemo((): string => {
     switch (toast.type) {
-      case EToastType.DANGER:
+      case ToastType.DANGER:
         return "Error icon";
-      case EToastType.WARNING:
+      case ToastType.WARNING:
         return "Warning icon";
       default:
         return "Check icon";
@@ -94,13 +97,13 @@ export const AppBaseToast = () => {
    */
   const toast_dynamicId = useMemo((): string => {
     switch (toast.position) {
-      case EToastPosition.TOP_LEFT:
+      case ToastPosition.TOP_LEFT:
         return "toast-top-left";
-      case EToastPosition.TOP_RIGHT:
+      case ToastPosition.TOP_RIGHT:
         return "toast-top-right";
-      case EToastPosition.BOTTOM_LEFT:
+      case ToastPosition.BOTTOM_LEFT:
         return "toast-bottom-left";
-      case EToastPosition.BOTTOM_RIGHT:
+      case ToastPosition.BOTTOM_RIGHT:
         return "toast-bottom-right";
       default:
         return "";
@@ -115,16 +118,20 @@ export const AppBaseToast = () => {
   };
 
   useEffect(() => {
-    eventBus.on(EToastType.DANGER, (params: unknown) => {
+    const onToast = (params: unknown) => {
       setToast(params as IToastProps);
-    });
+    };
+
+    eventBus.on("toast", onToast);
 
     return () => {
-      eventBus.off(EToastType.DANGER, (params: unknown) => {
-        setToast(params as IToastProps);
-      });
+      eventBus.off("toast", onToast);
     };
   }, []);
+
+  if (!toast.isOpen) {
+    return null;
+  }
 
   return (
     <section

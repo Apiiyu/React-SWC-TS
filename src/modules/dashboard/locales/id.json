@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "pricing": "Harga",
+    "features": "Fitur",
+    "showcase": "Showcase",
+    "tools": "Tools",
+    "signIn": "Masuk"
+  },
+  "hero": {
+    "headlineLine1": "React SWC dengan",
+    "headlineLine2": "Pola DDD.",
+    "subtitle": "Tidak perlu buang waktu mencari-cari — ikuti panduan terbaik kami.",
+    "getStarted": "Mulai Sekarang",
+    "watchStories": "Tonton Cerita"
+  }
+}

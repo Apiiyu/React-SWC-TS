@@ -1,0 +1,52 @@
+name: 🐛 Bug report
+description: Report a defect in the base project
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a report. Please fill in as much of the template below as you can.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear and concise description of the bug.
+      placeholder: When I ..., the app ...
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Minimal, deterministic steps. A link to a repo or a failing test is ideal.
+      placeholder: |
+        1. Run `bun start:dev`
+        2. Navigate to ...
+        3. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Node/Bun version, browser. Run `bun --version` and `node --version`.
+      placeholder: |
+        - OS: macOS 15.5
+        - Bun: 1.3.12
+        - Node: 26.1.0
+        - Browser: Chrome 140
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs / console output
+      description: Paste the console error or build output. This is automatically formatted as code.
+      render: shell

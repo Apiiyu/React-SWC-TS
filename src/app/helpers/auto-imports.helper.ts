@@ -1,11 +1,11 @@
 // Fast-glob
 import fg from "fast-glob";
 
-// Path
-import path from "path";
-
 function removeExtension(str: string) {
-  return path.basename(str, path.extname(str));
+  // Strip compound suffixes (.stories.tsx, .test.tsx, .spec.tsx) in one pass,
+  // not just the last extension — path.extname alone would leave ".stories"
+  // attached and produce an invalid identifier like "AppBaseFoo.stories".
+  return str.replace(/(\.(stories|test|spec))?\.(tsx|jsx)$/, "");
 }
 
 export const getComponentImports = () => {
@@ -23,6 +23,15 @@ export const getComponentImports = () => {
     {
       dot: true,
       objectMode: true,
+      // Class components (currently just AppBaseErrorBoundary) confuse the
+      // auto-import plugin's self-file detection and get a self-referential
+      // import injected into their own definition — import them explicitly
+      // at the one place they're used instead.
+      ignore: [
+        "**/*.stories.{tsx,jsx}",
+        "**/*.{test,spec}.{tsx,jsx}",
+        "**/AppBaseErrorBoundary.{tsx,jsx}",
+      ],
     }
   );
 

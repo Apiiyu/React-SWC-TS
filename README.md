@@ -1,239 +1,228 @@
 # 🌟 React SWC Starter With Vite
 
-This project built with React, TypeScript, and TailwindCSS.
+This project is built with React, TypeScript, TailwindCSS, and Vite (SWC).
 
 ## Starter Introduction
 
-This application use DDD pattern. Here you can learn a little about DDD pattern, [Visit me](https://www.geeksforgeeks.org/domain-driven-design-ddd)
+This starter uses a **feature-based module architecture** with domain-oriented naming — not formal Domain-Driven Design (no domain/application/infrastructure layering). Each feature lives in its own module under `src/modules/`, and within a module, views stay focused on rendering while business logic, data flow, and validation live in dedicated files (`hooks/`, `schemas/`, `store/`). If you want a deeper primer on DDD concepts generally, [see here](https://www.geeksforgeeks.org/domain-driven-design-ddd) — just don't expect this repo to implement bounded contexts or aggregates.
+
+This project is the React/Vite sibling of [VueJS3-DDD-TS](https://github.com/existhink/VueJS3-DDD-TS) — same conventions, different framework.
 
 ---
 
 ## 🏆 Tips
 
-Here's my opinions for write our code more clean and readable. So, you can follow it or ignore it.
+Opinions for writing cleaner, more readable code in this codebase. Follow them or ignore them.
 
-1. Always using namespacing on your custom hooks, constants, etc on your domain. Example:
+1. **Namespace local variables/functions inside a hook by the concern they belong to.**
 
-```bash
-export const useAuthenticationHook = () => {
-  /**
-   * @description Reactive data binding
-   */
-  const [authentication_accessToken, setAuthentication_accessToken] = useState();
-  const [authentication_form, setAuthentication_form] = useState();
-  ...
-```
-
-Reason: We normally read things from left to right, top to bottom. As a result, when using namespacing, we should be able to directly determine who owns variables, functions, and so on.
-
-Side Effect: The use of namespacing can sometimes result in longer naming of variables, functions, and so on. However, we still have code that is easier to read than if we did not utilize namespacing at all.
-
-2. Order naming your variables, function, etc to ascending.
-
-```bash
-export const useAuthenticationHook = () => {
-  /**
-   * @description Reactive data binding
-   */
-  const [authentication_accessToken, setAuthentication_accessToken] = useState();
-  const [authentication_form, setAuthentication_form] = useState();
-
-  const authentication_onCancel = () => {
-     // Do something here
-  }
+```tsx
+export const useAuthenticationLogin = () => {
+  const [authentication_isSubmitting, setAuthentication_isSubmitting] =
+    useState(false);
 
   const authentication_onSubmit = () => {
-     // Do something here
-  }
+    // ...
+  };
 
-  return {
-    authentication_accessToken,
-    authentication_form,
-    authentication_onSubmit
-  }
+  return { authentication_isSubmitting, authentication_onSubmit };
+};
 ```
 
-Reason: One of the most important reasons for creating variables, functions, and so on in ascending sequence is to make things easier while troubleshooting or adding features.
+Reason: we read top-to-bottom, left-to-right — namespacing lets you tell at a glance who owns a given variable or function.
+Trade-off: names get longer, but stay easier to scan than unnamespaced flat locals.
 
-Side Effect: -
+2. **Order declarations ascending (state → derived → handlers → return).** Makes a file predictable to navigate when debugging or extending it.
 
-### Conclusion:
+### Conclusion
 
-Actually, there are plenty other approaches to make our code cleaner and easier to read for humans. However, at this time, I'd want to underline the two points listed above. Because, as previously said, I am using the same code approach in my project.
-
-As a result, I ask any creators who want to participate in this project to keep the previously created code consistent.
+There are plenty of other ways to keep code clean — these two are the ones enforced consistently across this codebase. Keep new code consistent with them.
 
 ## 📖 Notes
 
-When we wish to include a new package or library into this project. I ask that you first conduct some study on the package or library that you intend to utilize.
+Before adding a new dependency, check:
 
-When it comes to adding a new package or library, there are various factors to consider. Among them are:
+1. Is it actively maintained?
+2. Is it widely used / battle-tested?
+3. Does it have a healthy issue backlog (not abandoned, not on fire)?
+4. Is it reasonably small?
+5. Is it simple to use for the value it adds?
 
-1. Is the package or library frequently updated by its creator?
-2. Is the package or library popular with other developers?
-3. Does the package or library have a lot of issues?
-4. Is the package or library small in size?
-5. Is the package or library simple to use and has a big impact on our project? etc.
-
-I believe we can add the desired package or library once it has passed the five criteria outlined above. However, if you wish to start a conversation regarding the package or library you want to add, please do so in the project's discussion thread on GitHub.
+If it clears those, it's fair game. Open a discussion first if you're unsure.
 
 ## 🎖️ Web Technologies
 
 | Technology  | Description                                                                | Version |
 | ----------- | -------------------------------------------------------------------------- | ------- |
-| TailwindCSS | A utility-first CSS framework for rapidly building custom user interfaces. | latest  |
-| Typescript  | JavaScript with syntax for types                                           | latest  |
-| Vite        | Native-ESM powered web dev build tool                                      | latest  |
-| React       | React is a JavaScript library for building user interfaces..               | latest  |
+| Vite        | Native-ESM powered web dev build tool (SWC via `@vitejs/plugin-react-swc`) | 8.1.5   |
+| TypeScript  | JavaScript with syntax for types                                           | 6.0.3   |
+| React       | UI library                                                                 | 19.2.7  |
+| TailwindCSS | Utility-first CSS framework (v4, CSS-first config)                         | 4.3.3   |
+
+> **Why TypeScript 6.0.3 and not the newest 7.x?** `typescript-eslint` doesn't support TS 7 yet (peer range `<6.1.0`). This will move forward once that ecosystem catches up — check `package.json` for the current pin.
 
 ## 🏅 Dependencies & Libraries
 
-| Library                    | Description                                                                  | Version |
-| -------------------------- | ---------------------------------------------------------------------------- | ------- |
-| axios                      | Promise based HTTP client for the browser and node js                        | latest  |
-| chalk                      | Terminal string styling done right Vuelidate.                                | latest  |
-| fast-glob                  | It's a very fast and efficient glob library for Node.js                      | latest  |
-| minimatch                  | A glob matcher in javascript                                                 | latest  |
-| mitt                       | Tiny 200b functional event emitter / pubsub.                                 | latest  |
-| react                      | React is a JavaScript library for building user interfaces.                  | latest  |
-| react-dom                  | React package for working with the DOM.                                      | latest  |
-| react-router-dom           | Declarative routing for React web applications                               | latest  |
-| tailwindcss                | A utility-first CSS framework for rapidly building custom user interfaces.   | latest  |
-| unplugin-auto-import       | Auto import APIs on-demand for Vite, Webpack, Rspack, Rollup and esbuild.    | latest  |
-| unplugin-imagemin          | Unplugin compression Image Compression plugin based on squoosh and sharp.    | latest  |
-| vite-plugin-compression    | Use gzip or brotli to compress resources.                                    | latest  |
-| vite-plugin-remove-console | A vite plugin that remove the types of console in the production environment | latest  |
-| vite-plugin-svg-icons      | Vite Plugin for fast creating SVG sprites.                                   | latest  |
+| Library                     | Purpose                                                                      |
+| --------------------------- | ---------------------------------------------------------------------------- |
+| axios                       | HTTP client (transport only — see `plugins/axios`)                           |
+| @tanstack/react-query       | Server-state caching, retries, mutations                                     |
+| react-hook-form             | Form state                                                                   |
+| @hookform/resolvers + zod   | Schema validation for forms and `import.meta.env`                            |
+| zustand                     | App/module state (persisted where relevant)                                  |
+| react-router-dom            | Routing, with per-route code splitting via `React.lazy`                      |
+| react-i18next / i18next     | Translations (app-level + per-module namespaces)                             |
+| mitt                        | Event bus (used to decouple HTTP errors from toast UI)                       |
+| unplugin-auto-import        | Auto-imports for `app/constants`, `app/helpers`, `app/hooks`, and components |
+| vite-plugin-svg-icons       | SVG sprite generation                                                        |
+| vite-plugin-compression     | Gzip-compresses the production build                                         |
+| vite-plugin-remove-console  | Strips `console`/`debugger` from the production build                        |
+| vite-plugin-image-optimizer | Compresses raster/SVG assets at build time (sharp/svgo)                      |
+| @fontsource/be-vietnam-pro  | Self-hosted font (no render-blocking Google Fonts `@import`)                 |
+| babel-plugin-react-compiler | React Compiler — auto-memoization, no manual `useMemo`/`useCallback` ritual  |
+
+Dev tooling: Vitest + React Testing Library (with coverage gate), Storybook (+ a11y addon), ESLint (flat config) + Prettier, Husky + lint-staged + commitlint, dependency-cruiser (architecture boundary enforcement), Changesets (versioning), Dependabot, GitHub Actions CI.
+
+Every dependency is pinned to an explicit version in `package.json` — no `"latest"`. Bump deliberately, not implicitly.
 
 ## 🛠️ Setup Project
 
-To get this project up and running in your development environment, follow these step-by-step instructions.
-
 ### 🍴 Prerequisites
 
-We need to install or make sure that these tools are pre-installed on your machine:
+- [Bun](https://bun.sh) — this project uses `bun`, not `npm`/`yarn`.
+- [Git](https://git-scm.com/downloads)
 
-- [NodeJS](https://nodejs.org/en/download/): It is a JavaScript runtime build.
-- [Git](https://git-scm.com/downloads): It is an open source version control system.
-
-## 🔍 Usage
-
-### How To Use
-
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
-
-### 🚀 Install Project
-
-1. Clone the Repository
+### 🚀 Install & Run
 
 ```bash
-git clone https://github.com/existhink/VueJS3-DDD-TS.git
-```
-
-2. Install dependencies using bun
-
-```shell
-bun or bun install
-```
-
-3. Change **.env.local.example** to **.env.local**
-
-You must change the .env.local.example to .env.local and match it with you local machine.
-
-4. Run project for development
-
-```shell
+git clone https://github.com/existhink/React-SWC-DDD-TS.git
+cd React-SWC-DDD-TS
+bun install
+cp .env.example .env.local   # then edit as needed
 bun start:dev
 ```
 
----
+### 🎉 Build
 
-## 🎉 Build The App
-
-1. Build the app
-
-```shell
-bun build
+```bash
+bun run build   # tsc -b && vite build
 ```
 
-## 🧪 Test
+### 🧪 Test
 
-Run test across all files
-
-```shell
-bun test:unit
+```bash
+bun run test           # vitest run (unit project, jsdom)
+bun run test:watch     # vitest, watch mode
+bun run test:coverage  # unit tests + v8 coverage gate (fails below threshold)
+bun run test:storybook # story-based tests in real Chromium (see vitest.config.ts note)
 ```
+
+### 📊 Storybook
+
+```bash
+bun run storybook        # dev server on :6006
+bun run build-storybook  # static build (component showcase for this template)
+```
+
+### 📦 Bundle & Architecture
+
+```bash
+bun run analyze     # ANALYZE=true build → dist/stats.html (bundle composition)
+bun run size        # hard per-chunk gzip budget gate (fails CI on bloat)
+bun run dep:check   # dependency-cruiser — enforces module boundaries
+bun run dep:graph   # regenerate docs/architecture-graph.mmd
+```
+
+### 🚦 Releases
+
+```bash
+bun run changeset          # record a change (Changesets)
+bun run changeset:version  # bump versions + update CHANGELOG
+```
+
+### ✅ Lint & Format
+
+```bash
+bun run lint          # eslint .
+bun run format        # prettier --write .
+bun run format:check  # prettier --check .
+```
+
+A pre-commit hook (Husky + lint-staged) runs `eslint --fix` and `prettier --write` on staged files automatically; commit messages are checked against [Conventional Commits](https://www.conventionalcommits.org/) via commitlint. A pre-push hook runs the architecture boundary check and full test suite so regressions are caught before they reach CI.
+
+### 🧩 Generate a New Module
+
+```bash
+bun generate:module
+```
+
+Interactive (`@clack/prompts`): asks for the module name, then which optional folders it actually needs right now (`constants/`, `interfaces/`, `schemas/`, `hooks/`, `store/`) — nothing is scaffolded speculatively, an empty folder is dead weight, not DX. `router/`, `views/`, and `components/` are always created since a module needs at least a route and a screen to exist at all. Automatically registers the new router in `src/plugins/router/router.tsx`; if you opt into `locales/`, register the namespace in `src/plugins/i18n/i18n.ts` yourself.
 
 ---
 
 ## 📂 Folder Structure
 
-Project structure for this react starter
-
-```javascript
-
-public
-|   |_______vite.svg
-src                                       // Entry point for the app.
-|   |_______app                           // Core of feature in the project.
-|   |   |_______assets                    // Contain all assets for the app.
-|   |   |_______components                // Global components for the app.
-|   |   |_______constants                 // Contain all constants for the app.
-|   |   |_______helpers                   // Contain all helpers for the app.
-|   |   |_______routes                    // Configuration for load route the app.
-|   |   |_______types                     // Contain all global types for the app.
-|   |_______modules                       // Contain all modules for the app.
-|   |   |_______dashboard                 // Dashboard module.
-|   |   |   |_______components            // Contain all components for dashboard module.
-|   |   |   |_______constants             // Contain all constants for dashboard module.
-|   |   |   |_______interfaces            // Contain all interfaces for dashboard module.
-|   |   |   |_______hooks                 // Contain all hooks for dashboard module.
-|   |   |   |_______router                // Configuration for load route the dashboard module.
-|   |   |   |_______views                 // Contain all views for dashboard module.
-|   |   |_______{module-name}             // Example module.
-|   |_______plugins                       // Contain all plugins for the app.
-|   |   |_______axios                     // Axios plugin for the app.
-|   |   |_______mitt                      // Mitt plugin for the app.
-|   |   |_______router                    // Router plugin for the app.
-|   App.css                               // Global style for the app component.
-|   App.tsx                               // Main component for the app.
-|   auto-imports.d.ts                     // Auto imports for the app.
-|   index.css                             // Global style for the app.
-|   main.tsx                              // Entry point for the app.
-|   vite-env.d.ts                         // Vite environment file for the app.
-test
-|   |_______unit                          // Unit test for the app.
 ```
+src/
+  app/                          # Cross-cutting, not feature-specific
+    assets/                     # Fonts, icons, images
+    components/
+      base/                     # AppBaseSvg, AppBaseToast, AppBaseWrapper, AppBaseRouteGuard, ...
+      common/                   # AppCommonEntryPoint (the real app root)
+    constants/                  # Auto-imported app-wide constants (e.g. toast.constant.ts)
+    helpers/                    # Auto-imports.helper.ts (drives unplugin-auto-import)
+    hooks/                      # Shared hooks (useHttpAbort, useToast)
+    locales/                    # App-level i18n namespace ("app")
+    routes/                     # Top-level route table (app.routes.tsx)
+    schemas/                    # App-level Zod schemas (env.schema.ts)
+    store/                      # App-level Zustand stores (theme, session)
+    types/                      # Ambient global types (interfaces.d.ts) + generated auto-imports.d.ts
+  modules/                      # Feature modules — one bounded UI concern each
+    dashboard/                  # Public landing page
+    authentication/             # Login flow (RHF + Zod + TanStack Query)
+    {module-name}/               # Generated via `bun generate:module`
+  plugins/                      # Singletons wired once at app startup
+    axios/                      # HTTP transport only
+    errorHandler/                # HTTP error → toast dispatch (decoupled from axios)
+    i18n/                        # react-i18next init, resource bundling
+    mitt/                        # Event bus
+    reactQuery/                  # Shared QueryClient
+    router/                      # Merges app + module route tables
+  main.tsx                      # Entry point
+  index.css                     # Tailwind v4 entry + font import + dark-mode variant
+test/                           # Vitest + React Testing Library specs, mirrors src/ layout
+```
+
+**Module layout convention** (see `src/modules/authentication` for a full example):
+
+| Folder        | Holds                                                                                                       |
+| ------------- | ----------------------------------------------------------------------------------------------------------- |
+| `components/` | Module-local presentational pieces                                                                          |
+| `constants/`  | Module constants (e.g. API paths)                                                                           |
+| `interfaces/` | API/data-shape types                                                                                        |
+| `schemas/`    | Zod schemas (form validation, response validation)                                                          |
+| `hooks/`      | Business logic — the "service" layer. Views call these, never `httpClient` directly                         |
+| `store/`      | Zustand state genuinely local to the module (skip if there's nothing to hold — don't scaffold empty stores) |
+| `router/`     | The module's own route table, lazy-loaded and merged in `plugins/router`                                    |
+| `views/`      | The screens themselves — thin, call `hooks/` for logic                                                      |
+| `locales/`    | Translations registered under the module's namespace in `plugins/i18n`                                      |
+
+Session/auth state lives in `app/store/session.store.ts`, not inside the `authentication` module — `app/` components like `AppBaseRouteGuard` may depend on `app/`, but never on a feature module. Modules depend on `app/`, never the reverse.
 
 ### ⚒️ How to Contribute
 
-Want to contribute? Great!
-
-To fix a bug or enhance an existing module, follow these steps:
-
 - Fork the repo
 - Create a new branch (`git checkout -b improve-feature`)
-- Make the appropriate changes in the files
-- Add changes to reflect the changes made
-- Commit your changes (`git commit -am 'Improve feature'`)
-- Push to the branch (`git push origin improve-feature`)
-- Create a Pull Request
+- Make your changes, keeping the conventions above
+- `bun run lint && bun run format:check && bun run test && bun run build` before pushing
+- Commit using a [Conventional Commits](https://www.conventionalcommits.org/) message (enforced by commitlint)
+- Open a Pull Request
 
 ### 📩 Bug / Feature Request
 
-If you find a bug (the website couldn't handle the query and / or gave undesired results), kindly open an issue [here](https://github.com/existhink/VueJS3-DDD-TS/issues/new) by including your search query and the expected result.
-
-If you'd like to request a new function, feel free to do so by opening an issue [here](https://github.com/existhink/VueJS3-DDD-TS/issues/new). Please include sample queries and their corresponding results.
+Found a bug or want a feature? Open an issue [here](https://github.com/existhink/React-SWC-DDD-TS/issues/new) with steps to reproduce (bugs) or the use case (features).
 
 ## 📜 Credits
-
-List your collaborators, if any, with links to their GitHub profiles.
-
-I'd like to acknowledge my collaborators, who contributed to the success of this project. Below are links to their GitHub profiles.
-
-Furthermore, I utilized certain third-party assets that require attribution. Find the creators' links in this section.
-
-If I followed tutorials during development, I'd include the links to those as well.
 
 👦 Rafi Khoirulloh <br>
 Email: khoirulloh.rafi2@gmail.com <br>

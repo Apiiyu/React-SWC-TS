@@ -1,0 +1,6 @@
+# Fuller gate before code leaves the machine — pre-commit only lint-stages
+# the touched files, so regressions elsewhere (a broken import, a crossed
+# module boundary, a failing test in an untouched file) would otherwise slip
+# through to CI. Keep this in sync with .github/workflows/ci.yml.
+bun run dep:check
+bun run test

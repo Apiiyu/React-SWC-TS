@@ -4,7 +4,7 @@ import { useMemo } from "react";
 /**
  * @description Define the props interface
  */
-interface IProps {
+export interface IProps {
   prefix?: string;
   name: string;
   color?: string;

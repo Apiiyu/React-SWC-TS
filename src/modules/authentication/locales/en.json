@@ -1,0 +1,11 @@
+{
+  "login": {
+    "title": "Sign In",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign In",
+    "submitting": "Signing in...",
+    "emailInvalid": "Enter a valid email address",
+    "passwordTooShort": "Password must be at least 8 characters"
+  }
+}

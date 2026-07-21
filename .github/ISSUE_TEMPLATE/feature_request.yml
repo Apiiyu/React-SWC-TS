@@ -1,0 +1,35 @@
+name: 💡 Feature request
+description: Suggest an addition or change to the base project
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before opening, please check the [dependency addition criteria](../../README.md) if this involves a new package.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Innovation is born from a felt problem, not abstract market research. Describe the pain first.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: dropdown
+    id: package
+    attributes:
+      label: Does this add a dependency?
+      options:
+        - "No"
+        - "Yes — and I've checked it against the 5 criteria in the README"
+    validations:
+      required: true
