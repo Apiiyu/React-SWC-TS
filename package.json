@@ -39,7 +39,7 @@
     "mitt": "3.0.1",
     "react": "19.2.7",
     "react-dom": "19.2.7",
-    "react-hook-form": "7.82.0",
+    "react-hook-form": "7.83.0",
     "react-i18next": "17.0.10",
     "react-router-dom": "7.18.1",
     "unplugin-auto-import": "21.0.0",
