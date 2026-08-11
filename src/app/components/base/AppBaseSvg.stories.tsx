@@ -1,13 +1,15 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+// Modules
+import { AppBaseSvg } from './AppBaseSvg';
 
-import { AppBaseSvg } from "./AppBaseSvg";
+// Storybook
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta = {
-  title: "app/base/AppBaseSvg",
+  title: 'app/base/AppBaseSvg',
   component: AppBaseSvg,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
-    color: { control: "color" },
+    color: { control: 'color' },
   },
 } satisfies Meta<typeof AppBaseSvg>;
 
@@ -16,13 +18,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    name: "icon-checkmark",
+    name: 'icon-checkmark',
   },
 };
 
 export const CustomColor: Story = {
   args: {
-    name: "icon-checkmark",
-    color: "#0ddb93",
+    name: 'icon-checkmark',
+    color: '#0ddb93',
   },
 };

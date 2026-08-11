@@ -1,12 +1,18 @@
-import { describe, expect, it, vi, afterEach } from "vitest";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+// Components
+import { AppBaseErrorBoundary } from '@/app/components/base/AppBaseErrorBoundary';
 
-import { AppBaseErrorBoundary } from "@/app/components/base/AppBaseErrorBoundary";
-import eventBus from "@/plugins/mitt/mitt";
+// Mitt
+import eventBus from '@/plugins/mitt/mitt';
+
+// Testing
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+// Vite
+import { describe, expect, it, vi, afterEach } from 'vitest';
 
 const Boom = () => {
-  throw new Error("kaboom");
+  throw new Error('kaboom');
 };
 
 const Safe = () => <div>all good</div>;
@@ -15,58 +21,58 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
-describe("AppBaseErrorBoundary", () => {
-  it("renders children when nothing throws", () => {
+describe('AppBaseErrorBoundary', () => {
+  it('renders children when nothing throws', () => {
     render(
       <AppBaseErrorBoundary>
         <Safe />
-      </AppBaseErrorBoundary>
+      </AppBaseErrorBoundary>,
     );
 
-    expect(screen.getByText("all good")).toBeInTheDocument();
+    expect(screen.getByText('all good')).toBeInTheDocument();
   });
 
-  it("shows the fallback and dispatches a toast when a child throws", () => {
+  it('shows the fallback and dispatches a toast when a child throws', () => {
     // React logs caught render errors to console.error — silence it for a clean run.
-    vi.spyOn(console, "error").mockImplementation(() => {});
-    const emit = vi.spyOn(eventBus, "emit");
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const emit = vi.spyOn(eventBus, 'emit');
 
     render(
       <AppBaseErrorBoundary>
         <Boom />
-      </AppBaseErrorBoundary>
+      </AppBaseErrorBoundary>,
     );
 
     expect(emit).toHaveBeenCalledWith(
-      "toast",
-      expect.objectContaining({ message: "kaboom", type: "DANGER" })
+      'toast',
+      expect.objectContaining({ message: 'kaboom', type: 'DANGER' }),
     );
     // Retry button proves the fallback UI rendered.
-    expect(screen.getByRole("button")).toBeInTheDocument();
+    expect(screen.getByRole('button')).toBeInTheDocument();
   });
 
-  it("recovers to children after retry when the child no longer throws", async () => {
-    vi.spyOn(console, "error").mockImplementation(() => {});
+  it('recovers to children after retry when the child no longer throws', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
     const user = userEvent.setup();
 
     // A child that throws once, then renders fine after retry resets state.
     let shouldThrow = true;
     const Flaky = () => {
-      if (shouldThrow) throw new Error("transient");
+      if (shouldThrow) throw new Error('transient');
       return <div>recovered</div>;
     };
 
     render(
       <AppBaseErrorBoundary>
         <Flaky />
-      </AppBaseErrorBoundary>
+      </AppBaseErrorBoundary>,
     );
 
-    expect(screen.getByRole("button")).toBeInTheDocument();
+    expect(screen.getByRole('button')).toBeInTheDocument();
 
     shouldThrow = false;
-    await user.click(screen.getByRole("button"));
+    await user.click(screen.getByRole('button'));
 
-    expect(screen.getByText("recovered")).toBeInTheDocument();
+    expect(screen.getByText('recovered')).toBeInTheDocument();
   });
 });

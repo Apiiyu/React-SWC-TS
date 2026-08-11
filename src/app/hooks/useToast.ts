@@ -1,9 +1,12 @@
 // Constants
-import { ToastPosition, type ToastType } from "@/app/constants/toast.constant";
+import { ToastPosition, type ToastType } from '@/app/constants/toast.constant';
 
 // Mitt
-import eventBus from "@/plugins/mitt/mitt";
+import eventBus from '@/plugins/mitt/mitt';
 
+/**
+ * @description Input required to publish a typed toast notification.
+ */
 interface IShowToastOptions {
   message: string;
   type: ToastType;
@@ -15,12 +18,8 @@ interface IShowToastOptions {
  * — consumers call `showToast(...)` instead of reaching into `eventBus` directly.
  */
 export const useToast = () => {
-  const showToast = ({
-    message,
-    type,
-    position = ToastPosition.TOP_RIGHT,
-  }: IShowToastOptions) => {
-    eventBus.emit("toast", { isOpen: true, message, type, position });
+  const showToast = ({ message, type, position = ToastPosition.TOP_RIGHT }: IShowToastOptions) => {
+    eventBus.emit('toast', { isOpen: true, message, type, position });
   };
 
   return { showToast };

@@ -19,8 +19,10 @@
  * listed here for exactly that reason.
  */
 export const routeLoaders = {
-  authenticationLogin: () =>
-    import("@/modules/authentication/views/authentication-login-main"),
+  authenticationLogin: () => import('@/modules/authentication/views/authentication-login-main'),
 } as const;
 
+/**
+ * @description Names of route loaders that can be requested by feature navigation.
+ */
 export type RouteLoaderKey = keyof typeof routeLoaders;

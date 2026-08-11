@@ -1,17 +1,21 @@
-import { describe, expect, it } from "vitest";
-import { renderHook } from "@testing-library/react";
+// Hooks
+import { useHttpAbort } from '@/app/hooks/useHttpAbort';
 
-import { useHttpAbort } from "@/app/hooks/useHttpAbort";
+// Testing
+import { renderHook } from '@testing-library/react';
 
-describe("useHttpAbort", () => {
-  it("returns a fresh, un-aborted AbortController", () => {
+// Vite
+import { describe, expect, it } from 'vitest';
+
+describe('useHttpAbort', () => {
+  it('returns a fresh, un-aborted AbortController', () => {
     const { result } = renderHook(() => useHttpAbort());
 
     expect(result.current).toBeInstanceOf(AbortController);
     expect(result.current.signal.aborted).toBe(false);
   });
 
-  it("keeps the same controller across re-renders", () => {
+  it('keeps the same controller across re-renders', () => {
     const { result, rerender } = renderHook(() => useHttpAbort());
     const first = result.current;
 
@@ -20,7 +24,7 @@ describe("useHttpAbort", () => {
     expect(result.current).toBe(first);
   });
 
-  it("aborts the signal on unmount (cancels in-flight requests)", () => {
+  it('aborts the signal on unmount (cancels in-flight requests)', () => {
     const { result, unmount } = renderHook(() => useHttpAbort());
     const { signal } = result.current;
 

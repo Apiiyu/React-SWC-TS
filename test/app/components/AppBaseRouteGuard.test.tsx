@@ -1,9 +1,17 @@
-import { afterEach, describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+// Components
+import { AppBaseRouteGuard } from '@/app/components/base/AppBaseRouteGuard';
 
-import { AppBaseRouteGuard } from "@/app/components/base/AppBaseRouteGuard";
-import { useSessionStore } from "@/app/store/session.store";
+// React Router DOM
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+
+// Stores
+import { useSessionStore } from '@/app/store/session.store';
+
+// Testing
+import { act, render, screen } from '@testing-library/react';
+
+// Vite
+import { afterEach, describe, expect, it } from 'vitest';
 
 const renderGuardedApp = (initialPath: string) =>
   render(
@@ -14,26 +22,30 @@ const renderGuardedApp = (initialPath: string) =>
           <Route path="/protected" element={<div>Protected content</div>} />
         </Route>
       </Routes>
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 
-describe("AppBaseRouteGuard", () => {
+describe('AppBaseRouteGuard', () => {
   afterEach(() => {
-    useSessionStore.getState().clearSession();
+    act(() => {
+      useSessionStore.getState().clearSession();
+    });
   });
 
-  it("redirects to login when there is no authenticated session", () => {
-    renderGuardedApp("/protected");
+  it('redirects to login when there is no authenticated session', () => {
+    renderGuardedApp('/protected');
 
-    expect(screen.getByText("Login page")).toBeInTheDocument();
-    expect(screen.queryByText("Protected content")).not.toBeInTheDocument();
+    expect(screen.getByText('Login page')).toBeInTheDocument();
+    expect(screen.queryByText('Protected content')).not.toBeInTheDocument();
   });
 
-  it("renders the protected route when authenticated", () => {
-    useSessionStore.getState().setSession("token-123");
+  it('renders the protected route when authenticated', () => {
+    act(() => {
+      useSessionStore.getState().setSession('token-123');
+    });
 
-    renderGuardedApp("/protected");
+    renderGuardedApp('/protected');
 
-    expect(screen.getByText("Protected content")).toBeInTheDocument();
+    expect(screen.getByText('Protected content')).toBeInTheDocument();
   });
 });

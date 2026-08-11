@@ -1,20 +1,20 @@
-// TanStack Query
-import { useMutation } from "@tanstack/react-query";
-
-// Plugins
-import httpClient from "@/plugins/axios/axios";
-
-// Store
-import { useSessionStore } from "@/app/store/session.store";
+// Axios
+import httpClient from '@/plugins/axios/axios';
 
 // Constants
-import { AUTHENTICATION_API } from "@/modules/authentication/constants/authentication.constant";
+import { AUTHENTICATION_API } from '@/modules/authentication/constants/authentication.constant';
 
 // Interfaces
-import type { ILoginResponse } from "@/modules/authentication/interfaces/authentication.interface";
+import type { ILoginResponse } from '@/modules/authentication/interfaces/authentication.interface';
 
 // Schemas
-import type { LoginSchema } from "@/modules/authentication/schemas/authentication.schema";
+import type { LoginSchema } from '@/modules/authentication/schemas/authentication.schema';
+
+// Stores
+import { useSessionStore } from '@/app/store/session.store';
+
+// TanStack
+import { useMutation } from '@tanstack/react-query';
 
 /**
  * @description Business logic for the login flow — the view only renders
@@ -25,10 +25,7 @@ export const useAuthenticationLogin = () => {
 
   return useMutation({
     mutationFn: async (payload: LoginSchema) => {
-      const { data } = await httpClient.post<ILoginResponse>(
-        AUTHENTICATION_API.LOGIN,
-        payload
-      );
+      const { data } = await httpClient.post<ILoginResponse>(AUTHENTICATION_API.LOGIN, payload);
       return data;
     },
     onSuccess: (data) => {

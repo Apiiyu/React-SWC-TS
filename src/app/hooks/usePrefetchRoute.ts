@@ -1,5 +1,5 @@
 // React
-import { useCallback } from "react";
+import { useCallback } from 'react';
 
 /**
  * @description A lazy chunk loader — the exact `() => import("...")` thunk a

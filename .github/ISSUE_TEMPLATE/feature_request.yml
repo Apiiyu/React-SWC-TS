@@ -1,7 +1,7 @@
 name: 💡 Feature request
 description: Suggest an addition or change to the base project
-title: "[Feature]: "
-labels: ["enhancement"]
+title: '[Feature]: '
+labels: ['enhancement']
 body:
   - type: markdown
     attributes:
@@ -29,7 +29,7 @@ body:
     attributes:
       label: Does this add a dependency?
       options:
-        - "No"
+        - 'No'
         - "Yes — and I've checked it against the 5 criteria in the README"
     validations:
       required: true

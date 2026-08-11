@@ -1,6 +1,9 @@
 // Zod
-import { z } from "zod";
+import { z } from 'zod';
 
+/**
+ * @description Shape of public Vite environment values accepted by the application.
+ */
 const envSchema = z.object({
   VITE_APP_BASE_API_URL: z.url().optional(),
 });

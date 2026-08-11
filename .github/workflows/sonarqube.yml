@@ -1,0 +1,39 @@
+name: SonarQube
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sonar:
+    name: SonarQube Analysis
+    runs-on: ubuntu-latest
+    if: ${{ vars.SONAR_ENABLED == 'true' }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.12
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Generate coverage
+        run: bun run test:coverage
+
+      - name: Scan with SonarQube
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

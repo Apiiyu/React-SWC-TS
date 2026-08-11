@@ -1,22 +1,26 @@
-// Images
-import HeroImage from "@/app/assets/images/hero.png";
-import HeroImageWebp from "@/app/assets/images/hero.webp";
+// Hooks
+import { usePrefetchRoute } from '@/app/hooks/usePrefetchRoute';
 
 // i18n
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
+
+// Modules
+import HeroImage from '@/app/assets/images/hero.png';
+import HeroImageWebp from '@/app/assets/images/hero.webp';
 
 // React Router DOM
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-// Hooks
-import { usePrefetchRoute } from "@/app/hooks/usePrefetchRoute";
+// Routes
+// Cross-module chunk loaders live in the composition root, so a feature module
+// never imports a sibling module directly (see route-loaders).
+import { routeLoaders } from '@/app/routes/route-loaders';
 
-// Routes — cross-module chunk loaders live in the composition root, so a
-// feature module never imports a sibling module directly (see route-loaders).
-import { routeLoaders } from "@/app/routes/route-loaders";
-
+/**
+ * @description Renders the dashboard landing hero and its navigation actions.
+ */
 export const Hero = () => {
-  const { t } = useTranslation("dashboard");
+  const { t } = useTranslation('dashboard');
 
   // Warm the login chunk on hover/focus — the same thunk authentication.router
   // wraps in lazy(), so we prefetch exactly the chunk that will render.
@@ -51,23 +55,20 @@ export const Hero = () => {
             </div>
           </div>
 
-          <div
-            className={`flex w-full mx-auto mobile-menu lg:block`}
-            id="navigation"
-          >
+          <div className={`flex w-full mx-auto mobile-menu lg:block`} id="navigation">
             <div className="flex flex-col items-baseline justify-between mx-auto mt-6 lg:flex-row lg:items-center lg:mt-0">
               <div className="flex flex-col w-full text-base font-normal text-white lg:flex-row lg:w-max lg:pl-4">
                 <a href="#" className="py-3 pl-2 mx-2 lg:mr-9 lg:pl-0">
-                  {t("nav.pricing")}
+                  {t('nav.pricing')}
                 </a>
                 <a href="#" className="py-3 pl-2 mx-2 lg:mr-9 lg:pl-0">
-                  {t("nav.features")}
+                  {t('nav.features')}
                 </a>
                 <a href="#" className="py-3 pl-2 mx-2 lg:mr-9 lg:pl-0">
-                  {t("nav.showcase")}
+                  {t('nav.showcase')}
                 </a>
                 <a href="#" className="py-3 pl-2 mx-2 lg:mr-9 lg:pl-0">
-                  {t("nav.tools")}
+                  {t('nav.tools')}
                 </a>
               </div>
               <div className="flex flex-col lg:flex-row gap-4 lg:gap-7 w-full px-3 mt-4 lg:mt-0 lg:w-max lg:px-0">
@@ -77,7 +78,7 @@ export const Hero = () => {
                   className="w-full lg:w-auto px-5 py-3 text-center rounded-lg flex lg:mx-auto bg-transparent transition ease-out duration-200 hover:bg-white hover:bg-opacity-30"
                 >
                   <span className="text-base w-full font-semibold text-white">
-                    {t("nav.signIn")}
+                    {t('nav.signIn')}
                   </span>
                 </Link>
               </div>
@@ -91,19 +92,19 @@ export const Hero = () => {
           <div className="col-span-12 md:col-span-5 lg:col-span-6">
             <div>
               <div className="headline font-bold text-4xl lg:text-5xl text-white leading-normal lg:leading-snug">
-                {t("hero.headlineLine1")}
+                {t('hero.headlineLine1')}
                 <br className="d-none md:d-block" />
-                {t("hero.headlineLine2")}
+                {t('hero.headlineLine2')}
               </div>
               <div className="mt-5 mb-9">
                 <p className="font-normal text-sm lg:text-base text-white leading-7">
-                  {t("hero.subtitle")}
+                  {t('hero.subtitle')}
                 </p>
               </div>
               <div className="flex items-center gap-7">
                 <a href="#" className="py-3 px-5 rounded-lg bg-champ-green">
                   <span className="text-base text-center font-semibold text-dark-2">
-                    {t("hero.getStarted")}
+                    {t('hero.getStarted')}
                   </span>
                 </a>
                 <a
@@ -111,7 +112,7 @@ export const Hero = () => {
                   className="py-3 px-5 rounded-lg bg-transparent transition ease-out duration-200 hover:bg-white hover:bg-opacity-30"
                 >
                   <span className="text-tile-grey font-normal underline text-base">
-                    {t("hero.watchStories")}
+                    {t('hero.watchStories')}
                   </span>
                 </a>
               </div>

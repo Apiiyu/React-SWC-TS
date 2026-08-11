@@ -1,7 +1,10 @@
 // Zustand
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
+/**
+ * @description Persisted authentication state shared by route guards and feature hooks.
+ */
 interface ISessionStore {
   accessToken: string | null;
   isAuthenticated: boolean;
@@ -23,6 +26,6 @@ export const useSessionStore = create<ISessionStore>()(
       setSession: (accessToken) => set({ accessToken, isAuthenticated: true }),
       clearSession: () => set({ accessToken: null, isAuthenticated: false }),
     }),
-    { name: "session-storage" }
-  )
+    { name: 'session-storage' },
+  ),
 );

@@ -1,19 +1,25 @@
-// React
-import { Component, type ErrorInfo, type ReactNode } from "react";
-
 // Constants
-import { ToastPosition, ToastType } from "@/app/constants/toast.constant";
+import { ToastPosition, ToastType } from '@/app/constants/toast.constant';
 
 // i18n
-import i18n from "@/plugins/i18n/i18n";
+import i18n from '@/plugins/i18n/i18n';
 
 // Mitt
-import eventBus from "@/plugins/mitt/mitt";
+import eventBus from '@/plugins/mitt/mitt';
 
+// React
+import { Component, type ErrorInfo, type ReactNode } from 'react';
+
+/**
+ * @description Props accepted by the render-error boundary.
+ */
 interface IProps {
   children: ReactNode;
 }
 
+/**
+ * @description Internal state that controls whether the retry surface is shown.
+ */
 interface IState {
   hasError: boolean;
 }
@@ -27,19 +33,24 @@ interface IState {
 export class AppBaseErrorBoundary extends Component<IProps, IState> {
   state: IState = { hasError: false };
 
+  /**
+   * @description Switches the boundary into its recoverable error state after a render failure.
+   */
   static getDerivedStateFromError(): IState {
     return { hasError: true };
   }
 
+  /**
+   * @description Sends a render failure through the existing toast channel and logs it in dev.
+   */
   componentDidCatch(error: Error, info: ErrorInfo) {
     if (import.meta.env.DEV) {
       console.error(error, info);
     }
 
-    eventBus.emit("toast", {
+    eventBus.emit('toast', {
       isOpen: true,
-      message:
-        error.message || i18n.t("errors.somethingWentWrong", { ns: "app" }),
+      message: error.message || i18n.t('errors.somethingWentWrong', { ns: 'app' }),
       type: ToastType.DANGER,
       position: ToastPosition.TOP_RIGHT,
     });
@@ -49,20 +60,23 @@ export class AppBaseErrorBoundary extends Component<IProps, IState> {
     this.setState({ hasError: false });
   };
 
+  /**
+   * @description Renders either the retry surface or the children that rendered successfully.
+   */
   render() {
     if (this.state.hasError) {
       return (
         <div className="flex min-h-screen items-center justify-center bg-dark-1 px-4 text-center">
           <div>
             <p className="text-xl font-semibold text-white">
-              {i18n.t("errorBoundary.title", { ns: "app" })}
+              {i18n.t('errorBoundary.title', { ns: 'app' })}
             </p>
             <button
               type="button"
               onClick={this.handleRetry}
               className="mt-4 rounded-lg bg-champ-green px-5 py-2 font-semibold text-dark-2"
             >
-              {i18n.t("errorBoundary.retry", { ns: "app" })}
+              {i18n.t('errorBoundary.retry', { ns: 'app' })}
             </button>
           </div>
         </div>

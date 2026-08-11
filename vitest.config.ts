@@ -1,25 +1,28 @@
-// Node
-import path from "node:path";
-
 // Helpers
-import { getComponentImports } from "./src/app/helpers/auto-imports.helper";
+import { getComponentImports } from './src/app/helpers/auto-imports.helper.ts';
 
-// URL
-import { fileURLToPath, URL } from "url";
+// Node Libraries
+import path from 'node:path';
 
-// Unplugin
-import AutoImport from "unplugin-auto-import/vite";
-import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
-
+// Storybook
 // Storybook + Vitest browser integration
-import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
-import { playwright } from "@vitest/browser-playwright";
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
+
+// Third Party Libraries
+// Third Party Libraries
+import { fileURLToPath, URL } from 'url';
+
+// Vite
+import react from '@vitejs/plugin-react-swc';
+// Unplugin
+import AutoImport from 'unplugin-auto-import/vite';
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
+import { defaultExclude, defineConfig } from 'vitest/config';
 
 // Vitest
-import { defineConfig } from "vitest/config";
-import react from "@vitejs/plugin-react-swc";
+import { playwright } from '@vitest/browser-playwright';
 
-const dirname = fileURLToPath(new URL(".", import.meta.url));
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 /**
  * @description Standalone (not merged from vite.config.ts) to sidestep a
@@ -32,56 +35,63 @@ const dirname = fileURLToPath(new URL(".", import.meta.url));
  * https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon).
  * Kept separate so the fast unit gate never needs a browser installed.
  *
- * KNOWN ISSUE: `bun run test:storybook` currently fails with a CJS/ESM
- * interop error inside `@storybook/addon-vitest`'s own bundled setup file
- * (`aria-query` "does not provide an export named 'elementRoles'") — an
- * upstream bug in this very new addon (10.5.2), not a config mistake here.
- * `bun run storybook` / `bun run build-storybook` (the actual deliverable —
- * browsing and building the stories) both work correctly. Revisit when the
- * addon ships a fix.
+ * Browser tests require the pinned Chromium binary. CI installs it explicitly;
+ * local contributors can run `bunx playwright install chromium` once before
+ * invoking `bun run test:storybook`.
  */
 export default defineConfig({
   plugins: [
     AutoImport({
       defaultExportByFilename: false,
-      dirs: ["src/app/constants", "src/app/helpers", "src/app/hooks"],
+      dirs: ['src/app/constants', 'src/app/helpers', 'src/app/hooks'],
       exclude: [/\.stories\.[tj]sx?$/, /node_modules/],
       dts: false,
       imports: [
         // @ts-expect-error - Add global imports here
         ...getComponentImports(),
         // @ts-expect-error - Add global imports here
-        "react",
+        'react',
       ],
     }),
-    react(),
+    react({ disableOxcRecommendation: true }),
     createSvgIconsPlugin({
-      iconDirs: [path.resolve(dirname, "src/app/assets/icons")],
-      symbolId: "icon-[dir]-[name]",
+      iconDirs: [path.resolve(dirname, 'src/app/assets/icons')],
+      symbolId: 'icon-[dir]-[name]',
     }),
   ],
   resolve: {
     alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  optimizeDeps: {
+    // Storybook's Vitest addon consumes the CommonJS aria-query package through the ESM build
+    // of Testing Library. Pre-bundling both packages gives Rolldown a stable named-export map.
+    include: ['@testing-library/dom', 'aria-query'],
+  },
   test: {
+    onConsoleLog(log) {
+      // The error-boundary story intentionally throws; keep that fixture from polluting the
+      // browser gate while allowing every unrelated console error to remain visible.
+      return !log.includes('Simulated render error') && !log.includes('ThrowingChild');
+    },
     coverage: {
-      provider: "v8",
+      provider: 'v8',
+      reporter: ['text', 'json', 'html', 'lcov'],
       // Scope to the logic surface we unit-test — hooks, stores, schemas,
       // the error pipeline, and the stateful base components. Purely
-      // presentational base components (AppBaseText/Svg/Wrapper) are
+      // presentational base components (AppBaseSvg/Wrapper) are
       // story-covered, not unit-covered, and would dilute this signal, so
       // they're deliberately left out of the include glob.
       include: [
-        "src/app/hooks/**",
-        "src/app/store/**",
-        "src/app/components/base/AppBaseToast.tsx",
-        "src/app/components/base/AppBaseRouteGuard.tsx",
-        "src/app/components/base/AppBaseErrorBoundary.tsx",
-        "src/plugins/errorHandler/**",
-        "src/modules/**/hooks/**",
-        "src/modules/**/schemas/**",
+        'src/app/hooks/**',
+        'src/app/store/**',
+        'src/app/components/base/AppBaseToast.tsx',
+        'src/app/components/base/AppBaseRouteGuard.tsx',
+        'src/app/components/base/AppBaseErrorBoundary.tsx',
+        'src/plugins/errorHandler/**',
+        'src/modules/**/hooks/**',
+        'src/modules/**/schemas/**',
       ],
       // A floor, not a target — its job is to fail the build if coverage
       // silently erodes, not to chase 100%. Raise deliberately as the suite
@@ -99,26 +109,29 @@ export default defineConfig({
       {
         extends: true,
         test: {
-          name: "unit",
-          environment: "jsdom",
+          name: 'unit',
+          environment: 'jsdom',
+          exclude: [...defaultExclude, 'e2e/**'],
           globals: true,
-          setupFiles: ["./test/setup.ts"],
+          setupFiles: ['./test/setup.ts'],
         },
       },
       {
         extends: true,
         plugins: [
           storybookTest({
-            configDir: path.join(dirname, ".storybook"),
+            configDir: path.join(dirname, '.storybook'),
+            tags: { skip: ['skip'] },
           }),
         ],
         test: {
-          name: "storybook",
+          name: 'storybook',
+          exclude: [...defaultExclude, 'e2e/**'],
           browser: {
             enabled: true,
             headless: true,
             provider: playwright({}),
-            instances: [{ browser: "chromium" }],
+            instances: [{ browser: 'chromium' }],
           },
         },
       },

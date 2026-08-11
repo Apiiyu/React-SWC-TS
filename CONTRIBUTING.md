@@ -8,14 +8,14 @@ Thanks for your interest in improving this base project. It's a public template,
 git clone https://github.com/existhink/React-SWC-DDD-TS.git
 cd React-SWC-DDD-TS
 bun install
-bun start:dev
+bun run start:dev
 ```
 
 ## Development workflow
 
 | Command                                   | What it does                                     |
 | ----------------------------------------- | ------------------------------------------------ |
-| `bun start:dev`                           | Dev server                                       |
+| `bun run start:dev`                       | Dev server                                       |
 | `bun run build`                           | Typecheck (`tsc -b`) + production bundle         |
 | `bun run lint`                            | ESLint                                           |
 | `bun run format` / `bun run format:check` | Prettier write / check                           |
@@ -27,13 +27,21 @@ bun start:dev
 | `bun run generate:module`                 | Scaffold a new feature module (interactive)      |
 | `bun run storybook`                       | Component workshop                               |
 | `bun run size`                            | Bundle-size budget gate                          |
+| `bun run lint:check`                      | Full zero-warning lint and convention gate       |
+| `bun run format:imports:check`            | Deterministic import-order check                 |
+| `bun run lint:conventions`                | JSDoc and class-member convention check          |
+| `bun run auto-imports:check`              | Generated auto-import integrity check            |
+| `bun run test:e2e`                        | Playwright against the production preview        |
 
 ## Before you open a PR
 
-1. **Run the gates.** `bun run build`, `bun run lint`, `bun run format:check`, `bun run test`, `bun run dep:check` must all pass. CI runs the same gates; a pre-commit hook runs lint-staged and a pre-push hook runs the full test suite.
+1. **Run the gates.** `bun run lint:check`, `bunx tsc -b --pretty false`, `bun run format:check`, `bun run test:coverage`, `bun run dep:check`, `bun run build`, `bun run auto-imports:check`, `bun run size`, and `bun run build-storybook` must all pass. Install Chromium and run `bun run test:storybook` plus `bun run test:e2e` for browser coverage. CI runs the same gates; pre-commit and pre-push hooks provide faster local feedback.
 2. **Add tests.** New behavior needs a test that fails without your change. Bug fixes need a regression test.
 3. **Add a changeset** if your change affects people consuming the template: `bun run changeset`.
 4. **Respect the architecture.** See below.
+
+SonarQube and CodeQL run in GitHub Actions. Do not mark a local Sonar result as passed when the
+repository has not configured `SONAR_ENABLED`, `SONAR_HOST_URL`, and `SONAR_TOKEN`.
 
 ## Architecture rules (enforced by `dep:check`)
 
@@ -49,7 +57,7 @@ Commits follow [Conventional Commits](https://www.conventionalcommits.org/) (enf
 feat(auth): add password reset flow
 fix(toast): guard against rendering an empty toast
 docs(readme): document the module generator
-chore(deps): pin vite to 8.1.5
+chore(deps): pin vite to 8.2.0
 ```
 
 ## Adding a dependency
@@ -66,6 +74,7 @@ Pin the exact version — this template does not use floating ranges.
 
 ## Code style
 
-- Namespace domain variables/functions (`authentication_form`, `authentication_onSubmit`) so ownership reads left-to-right.
-- Order declarations ascending.
+- Namespace domain variables/functions (`authentication_form`, `authentication_onSubmit`) so ownership reads left-to-right when the scope benefits from it.
+- Add meaningful JSDoc `@description` blocks to authored declarations.
+- Run `bun run format:imports` instead of hand-ordering import groups.
 - Prettier and ESLint are the source of truth; don't hand-fight them.
