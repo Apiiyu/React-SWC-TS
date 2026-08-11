@@ -18,8 +18,7 @@ Opinions for writing cleaner, more readable code in this codebase. Follow them o
 
 ```tsx
 export const useAuthenticationLogin = () => {
-  const [authentication_isSubmitting, setAuthentication_isSubmitting] =
-    useState(false);
+  const [authentication_isSubmitting, setAuthentication_isSubmitting] = useState(false);
 
   const authentication_onSubmit = () => {
     // ...
@@ -54,9 +53,9 @@ If it clears those, it's fair game. Open a discussion first if you're unsure.
 
 | Technology  | Description                                                                | Version |
 | ----------- | -------------------------------------------------------------------------- | ------- |
-| Vite        | Native-ESM powered web dev build tool (SWC via `@vitejs/plugin-react-swc`) | 8.1.5   |
+| Vite        | Native-ESM powered web dev build tool (SWC via `@vitejs/plugin-react-swc`) | 8.2.0   |
 | TypeScript  | JavaScript with syntax for types                                           | 6.0.3   |
-| React       | UI library                                                                 | 19.2.7  |
+| React       | UI library                                                                 | 19.2.8  |
 | TailwindCSS | Utility-first CSS framework (v4, CSS-first config)                         | 4.3.3   |
 
 > **Why TypeScript 6.0.3 and not the newest 7.x?** `typescript-eslint` doesn't support TS 7 yet (peer range `<6.1.0`). This will move forward once that ecosystem catches up — check `package.json` for the current pin.
@@ -81,15 +80,20 @@ If it clears those, it's fair game. Open a discussion first if you're unsure.
 | @fontsource/be-vietnam-pro  | Self-hosted font (no render-blocking Google Fonts `@import`)                 |
 | babel-plugin-react-compiler | React Compiler — auto-memoization, no manual `useMemo`/`useCallback` ritual  |
 
-Dev tooling: Vitest + React Testing Library (with coverage gate), Storybook (+ a11y addon), ESLint (flat config) + Prettier, Husky + lint-staged + commitlint, dependency-cruiser (architecture boundary enforcement), Changesets (versioning), Dependabot, GitHub Actions CI.
+Dev tooling: Vitest + React Testing Library (with coverage gate), Storybook (+ a11y addon), Playwright E2E, ESLint (flat config) + Prettier, Husky + lint-staged + commitlint, dependency-cruiser (architecture boundary enforcement), Changesets (versioning), Dependabot, CodeQL, optional SonarQube, and GitHub Actions CI.
 
 Every dependency is pinned to an explicit version in `package.json` — no `"latest"`. Bump deliberately, not implicitly.
+
+SonarQube runs from `.github/workflows/sonarqube.yml` only when the repository variable
+`SONAR_ENABLED=true` and the `SONAR_HOST_URL` / `SONAR_TOKEN` secrets are configured. The workflow
+skips cleanly otherwise; local coverage still emits `coverage/lcov.info` for the scanner.
 
 ## 🛠️ Setup Project
 
 ### 🍴 Prerequisites
 
-- [Bun](https://bun.sh) — this project uses `bun`, not `npm`/`yarn`.
+- [Bun](https://bun.sh) 1.3.12 — this project uses `bun`, not `npm`/`yarn`.
+- Node.js 24.11.0 — use the version pinned in `.nvmrc`.
 - [Git](https://git-scm.com/downloads)
 
 ### 🚀 Install & Run
@@ -99,7 +103,7 @@ git clone https://github.com/existhink/React-SWC-DDD-TS.git
 cd React-SWC-DDD-TS
 bun install
 cp .env.example .env.local   # then edit as needed
-bun start:dev
+bun run start:dev
 ```
 
 ### 🎉 Build
@@ -114,7 +118,8 @@ bun run build   # tsc -b && vite build
 bun run test           # vitest run (unit project, jsdom)
 bun run test:watch     # vitest, watch mode
 bun run test:coverage  # unit tests + v8 coverage gate (fails below threshold)
-bun run test:storybook # story-based tests in real Chromium (see vitest.config.ts note)
+bun run test:storybook # story-based tests in real Chromium
+bun run test:e2e         # Playwright flow against the production preview
 ```
 
 ### 📊 Storybook
@@ -143,17 +148,19 @@ bun run changeset:version  # bump versions + update CHANGELOG
 ### ✅ Lint & Format
 
 ```bash
-bun run lint          # eslint .
+bun run lint          # eslint . --max-warnings=0
+bun run lint:conventions # JSDoc and class-member convention gate
+bun run format:imports:check # deterministic A-Z import gate
 bun run format        # prettier --write .
 bun run format:check  # prettier --check .
 ```
 
-A pre-commit hook (Husky + lint-staged) runs `eslint --fix` and `prettier --write` on staged files automatically; commit messages are checked against [Conventional Commits](https://www.conventionalcommits.org/) via commitlint. A pre-push hook runs the architecture boundary check and full test suite so regressions are caught before they reach CI.
+A pre-commit hook (Husky + lint-staged) runs import sorting, ESLint, Prettier, the JSDoc convention check, and the zero-warning lint gate. Commit messages are checked against [Conventional Commits](https://www.conventionalcommits.org/) via commitlint. A pre-push hook runs the architecture boundary check and unit suite so regressions are caught before they reach CI.
 
 ### 🧩 Generate a New Module
 
 ```bash
-bun generate:module
+bun run generate:module
 ```
 
 Interactive (`@clack/prompts`): asks for the module name, then which optional folders it actually needs right now (`constants/`, `interfaces/`, `schemas/`, `hooks/`, `store/`) — nothing is scaffolded speculatively, an empty folder is dead weight, not DX. `router/`, `views/`, and `components/` are always created since a module needs at least a route and a screen to exist at all. Automatically registers the new router in `src/plugins/router/router.tsx`; if you opt into `locales/`, register the namespace in `src/plugins/i18n/i18n.ts` yourself.
@@ -180,7 +187,7 @@ src/
   modules/                      # Feature modules — one bounded UI concern each
     dashboard/                  # Public landing page
     authentication/             # Login flow (RHF + Zod + TanStack Query)
-    {module-name}/               # Generated via `bun generate:module`
+    {module-name}/               # Generated via `bun run generate:module`
   plugins/                      # Singletons wired once at app startup
     axios/                      # HTTP transport only
     errorHandler/                # HTTP error → toast dispatch (decoupled from axios)

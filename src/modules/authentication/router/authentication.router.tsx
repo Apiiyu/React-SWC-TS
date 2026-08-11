@@ -1,23 +1,28 @@
 // React
-import { lazy } from "react";
+import { lazy } from 'react';
 
 // React Router DOM
-import { RouteObject } from "react-router-dom";
+import type { RouteObject } from 'react-router-dom';
 
-// eslint-disable-next-line react-refresh/only-export-components -- router file intentionally pairs a lazy component with its `use*Router` hook export
+/**
+ * @description Lazy-loaded authentication login screen.
+ */
 const AuthenticationLogin = lazy(() =>
-  import("../views/authentication-login-main").then((module) => ({
+  import('../views/authentication-login-main').then((module) => ({
     default: module.AuthenticationLogin,
-  }))
+  })),
 );
 
+/**
+ * @description Returns routes owned by the authentication feature module.
+ */
 export const useAuthenticationRouter = (): RouteObject[] => {
   return [
     {
-      path: "authentication",
+      path: 'authentication',
       children: [
         {
-          path: "login",
+          path: 'login',
           element: <AuthenticationLogin />,
         },
       ],

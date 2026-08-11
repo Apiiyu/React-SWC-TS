@@ -6,7 +6,7 @@
  * `/// <reference types="vite-plugin-svg-icons/client" />` can't resolve
  * under `moduleResolution: bundler`. Declared here instead.
  */
-declare module "virtual:svg-icons-register" {
+declare module 'virtual:svg-icons-register' {
   const component: never;
   export default component;
 }

@@ -1,20 +1,25 @@
 // React
-import { lazy } from "react";
+import { lazy } from 'react';
 
 // React Router DOM
-import { RouteObject } from "react-router-dom";
+import type { RouteObject } from 'react-router-dom';
 
-// eslint-disable-next-line react-refresh/only-export-components -- routes file intentionally pairs a lazy component with its `use*Routes` hook export
+/**
+ * @description Lazy-loaded landing screen used by the root route.
+ */
 const Dashboard = lazy(() =>
-  import("@/modules/dashboard/views/dashboard-main").then((module) => ({
+  import('@/modules/dashboard/views/dashboard-main').then((module) => ({
     default: module.Dashboard,
-  }))
+  })),
 );
 
+/**
+ * @description Returns application-level routes that are not owned by a feature module.
+ */
 const useAppRoutes = (): RouteObject[] => {
   return [
     {
-      path: "/",
+      path: '/',
       element: <Dashboard />,
     },
   ];

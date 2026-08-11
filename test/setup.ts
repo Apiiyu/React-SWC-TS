@@ -1,4 +1,4 @@
-import "@testing-library/jest-dom/vitest";
+import '@testing-library/jest-dom/vitest';
 
 /**
  * @description Node 22+'s native (still-experimental) `localStorage` global
@@ -34,7 +34,7 @@ class MemoryStorage implements Storage {
   }
 }
 
-Object.defineProperty(globalThis, "localStorage", {
+Object.defineProperty(globalThis, 'localStorage', {
   value: new MemoryStorage(),
   configurable: true,
   writable: true,

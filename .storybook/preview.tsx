@@ -1,13 +1,13 @@
-import type { Preview } from "@storybook/react-vite";
-
 // Tailwind entry — without this, stories render completely unstyled
-import "../src/index.css";
 
+import '../src/index.css';
 // vite-plugin-svg-icons sprite — without this, AppBaseSvg stories render an empty icon
-import "virtual:svg-icons-register";
-
+import 'virtual:svg-icons-register';
 // i18n — components using `useTranslation`/`i18n.t` need this initialized
-import "../src/plugins/i18n/i18n";
+import '../src/plugins/i18n/i18n';
+
+// Storybook
+import type { Preview } from '@storybook/react-vite';
 
 const preview: Preview = {
   parameters: {
@@ -19,10 +19,8 @@ const preview: Preview = {
     },
 
     a11y: {
-      // 'todo' - show a11y violations in the test UI only
-      // 'error' - fail CI on a11y violations
-      // 'off' - skip a11y checks entirely
-      test: "todo",
+      // Fail browser verification instead of hiding accessibility regressions.
+      test: 'error',
     },
   },
 };

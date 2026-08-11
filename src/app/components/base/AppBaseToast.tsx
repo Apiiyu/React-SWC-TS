@@ -1,11 +1,11 @@
 // Constants
-import { ToastPosition, ToastType } from "@/app/constants/toast.constant";
+import { ToastPosition, ToastType } from '@/app/constants/toast.constant';
 
 // Mitt
-import eventBus from "@/plugins/mitt/mitt";
+import eventBus from '@/plugins/mitt/mitt';
 
 // React
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect } from 'react';
 
 /**
  * @description Define the props interface
@@ -17,13 +17,16 @@ interface IToastProps {
   type: ToastType;
 }
 
+/**
+ * @description Subscribes to toast events and renders the current dismissible notification.
+ */
 export const AppBaseToast = () => {
   /**
    * @description Reactive data binding
    */
   const [toast, setToast] = useState<IToastProps>({
     isOpen: false,
-    message: "",
+    message: '',
     position: ToastPosition.TOP_RIGHT,
     type: ToastType.SUCCESS,
   });
@@ -34,13 +37,13 @@ export const AppBaseToast = () => {
   const toast_dynamicClassNameBasedOnTypeToast = useMemo((): string => {
     switch (toast.type) {
       case ToastType.DANGER:
-        return "text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200";
+        return 'text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200';
       case ToastType.WARNING:
-        return "text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200";
+        return 'text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200';
       case ToastType.SUCCESS:
-        return "text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200";
+        return 'text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200';
       default:
-        return "";
+        return '';
     }
   }, [toast.type]);
 
@@ -50,15 +53,15 @@ export const AppBaseToast = () => {
   const toast_dynamicClassNameBasedOnPositionToast = useMemo((): string => {
     switch (toast.position) {
       case ToastPosition.TOP_LEFT:
-        return "top-5 left-5";
+        return 'top-5 left-5';
       case ToastPosition.TOP_RIGHT:
-        return "top-5 right-5";
+        return 'top-5 right-5';
       case ToastPosition.BOTTOM_LEFT:
-        return "bottom-5 left-5";
+        return 'bottom-5 left-5';
       case ToastPosition.BOTTOM_RIGHT:
-        return "bottom-5 right-5";
+        return 'bottom-5 right-5';
       default:
-        return "";
+        return '';
     }
   }, [toast.position]);
 
@@ -68,13 +71,13 @@ export const AppBaseToast = () => {
   const toast_dynamicDataTarget = useMemo(() => {
     switch (toast.type) {
       case ToastType.DANGER:
-        return "#toasts-danger";
+        return '#toasts-danger';
       case ToastType.WARNING:
-        return "#toast-warning";
+        return '#toast-warning';
       case ToastType.SUCCESS:
-        return "#toast-success";
+        return '#toast-success';
       default:
-        return "";
+        return '';
     }
   }, [toast.type]);
 
@@ -84,11 +87,11 @@ export const AppBaseToast = () => {
   const toast_dynamicIconName = useMemo((): string => {
     switch (toast.type) {
       case ToastType.DANGER:
-        return "Error icon";
+        return 'Error icon';
       case ToastType.WARNING:
-        return "Warning icon";
+        return 'Warning icon';
       default:
-        return "Check icon";
+        return 'Check icon';
     }
   }, [toast.type]);
 
@@ -98,15 +101,15 @@ export const AppBaseToast = () => {
   const toast_dynamicId = useMemo((): string => {
     switch (toast.position) {
       case ToastPosition.TOP_LEFT:
-        return "toast-top-left";
+        return 'toast-top-left';
       case ToastPosition.TOP_RIGHT:
-        return "toast-top-right";
+        return 'toast-top-right';
       case ToastPosition.BOTTOM_LEFT:
-        return "toast-bottom-left";
+        return 'toast-bottom-left';
       case ToastPosition.BOTTOM_RIGHT:
-        return "toast-bottom-right";
+        return 'toast-bottom-right';
       default:
-        return "";
+        return '';
     }
   }, [toast.position]);
 
@@ -122,10 +125,10 @@ export const AppBaseToast = () => {
       setToast(params as IToastProps);
     };
 
-    eventBus.on("toast", onToast);
+    eventBus.on('toast', onToast);
 
     return () => {
-      eventBus.off("toast", onToast);
+      eventBus.off('toast', onToast);
     };
   }, []);
 

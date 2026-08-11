@@ -1,25 +1,30 @@
-// Plugins
-import { queryClient, useRouter } from "@/plugins";
+// Components — explicit: not auto-imported, see auto-imports.helper.ts
+
+// Components
+import { AppBaseErrorBoundary } from '@/app/components/base/AppBaseErrorBoundary';
+
+// Modules
+import { queryClient, useRouter } from '@/plugins';
 
 // React
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect } from 'react';
 
-// Components — explicit: not auto-imported, see auto-imports.helper.ts
-import { AppBaseErrorBoundary } from "@/app/components/base/AppBaseErrorBoundary";
+// Stores
+import { useThemeStore } from '@/app/store/theme.store';
 
-// Store
-import { useThemeStore } from "@/app/store/theme.store";
+// TanStack
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-// TanStack Query
-import { QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
+/**
+ * @description Composes the shared error boundary, query provider, router, theme, and toast UI.
+ */
 export const AppCommonEntryPoint = () => {
   const routes = useRouter();
   const theme = useThemeStore((state) => state.theme);
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
+    document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
 
   return (

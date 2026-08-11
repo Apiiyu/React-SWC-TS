@@ -1,10 +1,14 @@
-import { describe, expect, it, vi } from "vitest";
-import { renderHook } from "@testing-library/react";
+// Hooks
+import { usePrefetchRoute } from '@/app/hooks/usePrefetchRoute';
 
-import { usePrefetchRoute } from "@/app/hooks/usePrefetchRoute";
+// Testing
+import { renderHook } from '@testing-library/react';
 
-describe("usePrefetchRoute", () => {
-  it("returns hover/focus/touch handlers that all trigger the chunk loader", () => {
+// Vite
+import { describe, expect, it, vi } from 'vitest';
+
+describe('usePrefetchRoute', () => {
+  it('returns hover/focus/touch handlers that all trigger the chunk loader', () => {
     const load = vi.fn(() => Promise.resolve({}));
     const { result } = renderHook(() => usePrefetchRoute(load));
 
@@ -15,8 +19,8 @@ describe("usePrefetchRoute", () => {
     expect(load).toHaveBeenCalledTimes(3);
   });
 
-  it("swallows a rejected chunk load so it never surfaces to the user", async () => {
-    const load = vi.fn(() => Promise.reject(new Error("network")));
+  it('swallows a rejected chunk load so it never surfaces to the user', async () => {
+    const load = vi.fn(() => Promise.reject(new Error('network')));
     const { result } = renderHook(() => usePrefetchRoute(load));
 
     // Must not throw synchronously nor reject — the real navigation retries.

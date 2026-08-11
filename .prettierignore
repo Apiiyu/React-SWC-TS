@@ -1,7 +1,8 @@
 dist
 coverage
 storybook-static
+test-results
+playwright-report
 .eslintrc-auto-import.json
-src/auto-imports.d.ts
 src/app/types/auto-imports.d.ts
 bun.lockb

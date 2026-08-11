@@ -1,5 +1,5 @@
 // React
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo } from 'react';
 
 /**
  * @description Provides an `AbortController` tied to the component's

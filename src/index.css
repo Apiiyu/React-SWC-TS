@@ -1,14 +1,47 @@
-/* Self-hosted via @fontsource — was a render-blocking request to
-   fonts.googleapis.com; self-hosting removes that round trip and the
-   third-party connection entirely. font-display: swap is baked into
-   each of these files already. */
-@import "@fontsource/be-vietnam-pro/300.css";
-@import "@fontsource/be-vietnam-pro/400.css";
-@import "@fontsource/be-vietnam-pro/500.css";
-@import "@fontsource/be-vietnam-pro/600.css";
-@import "@fontsource/be-vietnam-pro/700.css";
-@import "tailwindcss";
+/* Self-hosted via @fontsource — use direct package asset URLs so Vite 8's
+   Rolldown CSS resolver emits the font files instead of leaving the relative
+   URLs from the package stylesheet unresolved. */
+@import 'tailwindcss';
 
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300;
+  src: url('@fontsource/be-vietnam-pro/files/be-vietnam-pro-latin-300-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('@fontsource/be-vietnam-pro/files/be-vietnam-pro-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url('@fontsource/be-vietnam-pro/files/be-vietnam-pro-latin-500-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url('@fontsource/be-vietnam-pro/files/be-vietnam-pro-latin-600-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url('@fontsource/be-vietnam-pro/files/be-vietnam-pro-latin-700-normal.woff2') format('woff2');
+}
 /* Bridges the existing JS config (screens/fontSize/container overrides)
    into the v4 engine instead of hand-porting every token into @theme. */
 @config "../tailwind.config.js";
@@ -17,7 +50,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 .font-be-vietnam {
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
 }
 
 :root {

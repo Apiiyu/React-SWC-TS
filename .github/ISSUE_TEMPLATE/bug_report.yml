@@ -1,7 +1,7 @@
 name: 🐛 Bug report
 description: Report a defect in the base project
-title: "[Bug]: "
-labels: ["bug"]
+title: '[Bug]: '
+labels: ['bug']
 body:
   - type: markdown
     attributes:
@@ -21,7 +21,7 @@ body:
       label: Steps to reproduce
       description: Minimal, deterministic steps. A link to a repo or a failing test is ideal.
       placeholder: |
-        1. Run `bun start:dev`
+        1. Run `bun run start:dev`
         2. Navigate to ...
         3. See error
     validations:

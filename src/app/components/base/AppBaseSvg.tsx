@@ -1,5 +1,5 @@
 // React
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
 /**
  * @description Define the props interface
@@ -10,7 +10,10 @@ export interface IProps {
   color?: string;
 }
 
-export const AppBaseSvg = ({ color, name, prefix = "icon" }: IProps) => {
+/**
+ * @description Renders one symbol from the generated SVG sprite by its stable icon name.
+ */
+export const AppBaseSvg = ({ color, name, prefix = 'icon' }: IProps) => {
   // Memoize the symbolId to avoid recalculating on every render
   const symbolId = useMemo(() => `#${prefix}-${name}`, [prefix, name]);
 

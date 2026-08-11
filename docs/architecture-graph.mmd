@@ -4,300 +4,323 @@ subgraph 0["src"]
 subgraph 1["app"]
 subgraph 2["components"]
 subgraph 3["base"]
-4["AppBaseErrorBoundary.tsx"]
-12["AppBaseRouteGuard.tsx"]
-1C["AppBaseSvg.tsx"]
-1D["AppBaseText.tsx"]
-1E["AppBaseToast.tsx"]
-1F["AppBaseWrapper.tsx"]
+4["AppBaseErrorBoundary.stories.tsx"]
+A["AppBaseErrorBoundary.tsx"]
+17["AppBaseRouteGuard.tsx"]
+1H["AppBaseSvg.stories.tsx"]
+1I["AppBaseSvg.tsx"]
+1J["AppBaseToast.stories.tsx"]
+1K["AppBaseToast.tsx"]
+1L["AppBaseWrapper.tsx"]
 end
-subgraph 1G["common"]
-1H["AppCommonEntryPoint.tsx"]
-end
-end
-subgraph 8["constants"]
-9["toast.constant.ts"]
-end
-subgraph D["locales"]
-E["en.json"]
-F["id.json"]
-end
-subgraph 16["store"]
-17["session.store.ts"]
-1R["theme.store.ts"]
-end
-subgraph 1Z["schemas"]
-20["env.schema.ts"]
-end
-subgraph 29["routes"]
-2A["app.routes.tsx"]
-end
-subgraph 2F["assets"]
-subgraph 2G["images"]
-2H["hero.png"]
+subgraph 1M["common"]
+1N["AppCommonEntryPoint.tsx"]
 end
 end
-subgraph 34["helpers"]
-35["auto-imports.helper.ts"]
+subgraph D["constants"]
+E["toast.constant.ts"]
 end
-subgraph 3A["hooks"]
-3B["useHttpAbort.ts"]
-3C["useToast.ts"]
-end
-subgraph 3D["types"]
-3E["auto-imports.d.ts"]
-3F["interfaces.d.ts"]
-end
-end
-subgraph A["plugins"]
-subgraph B["i18n"]
-C["i18n.ts"]
-end
-subgraph X["mitt"]
-Y["mitt.ts"]
-end
-1S["index.ts"]
-subgraph 1T["axios"]
-1U["axios.ts"]
-end
-subgraph 23["errorHandler"]
-24["errorHandler.ts"]
-end
-subgraph 25["reactQuery"]
-26["reactQuery.ts"]
-end
-subgraph 27["router"]
-28["router.tsx"]
-end
-end
-subgraph G["modules"]
-subgraph H["authentication"]
 subgraph I["locales"]
 J["en.json"]
 K["id.json"]
 end
-subgraph 2I["router"]
-2J["authentication.router.tsx"]
+subgraph 1B["store"]
+1C["session.store.ts"]
+1X["theme.store.ts"]
 end
-subgraph 2K["views"]
-2L["authentication-login-main.tsx"]
+subgraph 25["schemas"]
+26["env.schema.ts"]
 end
-subgraph 2U["hooks"]
-2V["useAuthenticationLogin.hook.tsx"]
+subgraph 2F["routes"]
+2G["app.routes.tsx"]
+2R["route-loaders.ts"]
 end
-subgraph 2W["constants"]
-2X["authentication.constant.ts"]
-end
-subgraph 2Y["interfaces"]
-2Z["authentication.interface.ts"]
-end
-subgraph 30["schemas"]
-31["authentication.schema.ts"]
+subgraph 2L["assets"]
+subgraph 2M["images"]
+2N["hero.png"]
+2O["hero.webp"]
 end
 end
-subgraph L["dashboard"]
-subgraph M["locales"]
-N["en.json"]
-O["id.json"]
+subgraph 2P["hooks"]
+2Q["usePrefetchRoute.ts"]
+3J["useHttpAbort.ts"]
+3K["useToast.ts"]
 end
-subgraph 2B["views"]
-2C["dashboard-main.tsx"]
+subgraph 3E["helpers"]
+3F["auto-imports.helper.ts"]
 end
-subgraph 2D["components"]
-2E["Hero.tsx"]
-end
-subgraph 32["router"]
-33["dashboard.router.tsx"]
+subgraph 3L["types"]
+3M["auto-imports.d.ts"]
+3N["interfaces.d.ts"]
 end
 end
+subgraph F["plugins"]
+subgraph G["i18n"]
+H["i18n.ts"]
 end
-3G["auto-imports.d.ts"]
-3H["main.tsx"]
-3I["index.css"]
-3L["vite-env.d.ts"]
+subgraph 12["mitt"]
+13["mitt.ts"]
+end
+1Y["index.ts"]
+subgraph 1Z["axios"]
+20["axios.ts"]
+end
+subgraph 29["errorHandler"]
+2A["errorHandler.ts"]
+end
+subgraph 2B["reactQuery"]
+2C["reactQuery.ts"]
+end
+subgraph 2D["router"]
+2E["router.tsx"]
+end
+end
+subgraph L["modules"]
+subgraph M["authentication"]
+subgraph N["locales"]
+O["en.json"]
+P["id.json"]
+end
+subgraph 2S["views"]
+2T["authentication-login-main.tsx"]
+end
+subgraph 32["hooks"]
+33["useAuthenticationLogin.hook.tsx"]
+end
+subgraph 34["constants"]
+35["authentication.constant.ts"]
+end
+subgraph 36["interfaces"]
+37["authentication.interface.ts"]
+end
+subgraph 38["schemas"]
+39["authentication.schema.ts"]
+end
+subgraph 3A["router"]
+3B["authentication.router.tsx"]
+end
+end
+subgraph Q["dashboard"]
+subgraph R["locales"]
+S["en.json"]
+T["id.json"]
+end
+subgraph 2H["views"]
+2I["dashboard-main.tsx"]
+end
+subgraph 2J["components"]
+2K["Hero.tsx"]
+end
+subgraph 3C["router"]
+3D["dashboard.router.tsx"]
+end
+end
+end
+3O["main.tsx"]
+3P["index.css"]
+3T["vite-env.d.ts"]
 end
 subgraph 5["node_modules"]
-subgraph 6["react"]
-7["index.js"]
-end
-subgraph P["i18next"]
-subgraph Q["dist"]
-subgraph R["esm"]
-S["i18next.js"]
+subgraph 6["@storybook"]
+subgraph 7["react-vite"]
+subgraph 8["dist"]
+9["index.js"]
 end
 end
 end
-subgraph T["react-i18next"]
-subgraph U["dist"]
-subgraph V["es"]
-W["index.js"]
+subgraph B["react"]
+C["index.js"]
+end
+subgraph U["i18next"]
+subgraph V["dist"]
+subgraph W["esm"]
+X["i18next.js"]
 end
 end
 end
-subgraph Z["mitt"]
-subgraph 10["dist"]
-11["mitt.mjs"]
-end
-end
-subgraph 13["react-router-dom"]
-subgraph 14["dist"]
-15["index.js"]
-end
-end
-subgraph 18["zustand"]
-subgraph 19["esm"]
-1A["index.mjs"]
-1B["middleware.mjs"]
-end
-end
-subgraph 1I["@tanstack"]
-subgraph 1J["react-query"]
-subgraph 1K["build"]
-subgraph 1L["modern"]
-1M["index.js"]
+subgraph Y["react-i18next"]
+subgraph Z["dist"]
+subgraph 10["es"]
+11["index.js"]
 end
 end
 end
-subgraph 1N["react-query-devtools"]
-subgraph 1O["build"]
-subgraph 1P["modern"]
-1Q["index.js"]
+subgraph 14["mitt"]
+subgraph 15["dist"]
+16["mitt.mjs"]
+end
+end
+subgraph 18["react-router-dom"]
+subgraph 19["dist"]
+1A["index.js"]
+end
+end
+subgraph 1D["zustand"]
+subgraph 1E["esm"]
+1F["index.mjs"]
+1G["middleware.mjs"]
+end
+end
+subgraph 1O["@tanstack"]
+subgraph 1P["react-query"]
+subgraph 1Q["build"]
+subgraph 1R["modern"]
+1S["index.js"]
 end
 end
 end
-end
-subgraph 1V["axios"]
-subgraph 1W["dist"]
-subgraph 1X["node"]
-1Y["axios.cjs"]
-end
-end
-end
-subgraph 21["zod"]
-22["index.js"]
-end
-subgraph 2M["@hookform"]
-subgraph 2N["resolvers"]
-subgraph 2O["zod"]
-subgraph 2P["dist"]
-2Q["zod.mjs"]
+subgraph 1T["react-query-devtools"]
+subgraph 1U["build"]
+subgraph 1V["modern"]
+1W["index.js"]
 end
 end
 end
 end
-subgraph 2R["react-hook-form"]
-subgraph 2S["dist"]
-2T["index.esm.mjs"]
+subgraph 21["axios"]
+subgraph 22["dist"]
+subgraph 23["node"]
+24["axios.cjs"]
 end
 end
-subgraph 36["fast-glob"]
-subgraph 37["out"]
-38["index.js"]
+end
+subgraph 27["zod"]
+28["index.js"]
+end
+subgraph 2U["@hookform"]
+subgraph 2V["resolvers"]
+subgraph 2W["zod"]
+subgraph 2X["dist"]
+2Y["zod.mjs"]
 end
 end
-subgraph 3J["react-dom"]
-3K["client.js"]
 end
 end
-39["path"]
-subgraph 3M["vite"]
-3N["client"]
+subgraph 2Z["react-hook-form"]
+subgraph 30["dist"]
+31["index.esm.mjs"]
 end
+end
+subgraph 3G["fast-glob"]
+subgraph 3H["out"]
+3I["index.js"]
+end
+end
+subgraph 3Q["react-dom"]
+3R["client.js"]
+end
+end
+3S["virtual:svg-icons-register"]
+subgraph 3U["vite"]
+3V["client"]
+end
+4-->A
 4-->9
-4-->C
-4-->Y
-4-->7
-C-->E
-C-->F
-C-->J
-C-->K
-C-->N
-C-->O
-C-->S
-C-->W
-Y-->11
-12-->17
-12-->15
+A-->E
+A-->H
+A-->13
+A-->C
+H-->J
+H-->K
+H-->O
+H-->P
+H-->S
+H-->T
+H-->X
+H-->11
+13-->16
+17-->1C
 17-->1A
-17-->1B
-1C-->7
-1E-->9
-1E-->Y
-1E-->7
-1F-->7
-1F-->15
-1H-->1R
-1H-->1S
-1H-->1M
-1H-->1Q
-1H-->7
-1R-->1A
-1R-->1B
-1S-->1U
-1S-->24
-1S-->Y
-1S-->26
-1S-->28
-1U-->20
-1U-->24
-1U-->1Y
-20-->22
-24-->9
-24-->C
-24-->Y
-24-->1Y
-26-->1M
-28-->2A
-28-->2J
-28-->33
-28-->15
-2A-->2C
-2A-->7
-2A-->15
-2C-->2E
-2E-->2H
-2E-->W
-2J-->2L
-2J-->7
-2J-->15
-2L-->2V
-2L-->31
-2L-->2Q
-2L-->2T
-2L-->W
-2L-->15
-2V-->17
-2V-->2X
-2V-->2Z
-2V-->31
-2V-->1U
-2V-->1M
-31-->22
-33-->2C
-33-->7
-33-->15
-35-->38
-35-->39
-3B-->7
-3C-->9
-3C-->Y
-3E-->9
-3E-->35
-3E-->3B
-3E-->3C
-3E-->12
-3E-->1C
-3E-->1D
-3E-->1E
-3E-->1F
-3E-->1H
-3E-->7
-3G-->35
-3G-->1C
-3G-->1E
-3G-->7
-3H-->3I
-3H-->C
-3H-->3K
-3H-->15
-3L-->3N
+1C-->1F
+1C-->1G
+1H-->1I
+1H-->9
+1I-->C
+1J-->1K
+1J-->E
+1J-->13
+1J-->9
+1K-->E
+1K-->13
+1K-->C
+1L-->C
+1L-->1A
+1N-->A
+1N-->1X
+1N-->1Y
+1N-->1S
+1N-->1W
+1N-->C
+1X-->1F
+1X-->1G
+1Y-->20
+1Y-->2A
+1Y-->13
+1Y-->2C
+1Y-->2E
+20-->26
+20-->2A
+20-->24
+26-->28
+2A-->E
+2A-->H
+2A-->13
+2A-->24
+2C-->1S
+2E-->2G
+2E-->3B
+2E-->3D
+2E-->1A
+2G-->2I
+2G-->C
+2G-->1A
+2I-->2K
+2K-->2N
+2K-->2O
+2K-->2Q
+2K-->2R
+2K-->11
+2K-->1A
+2Q-->C
+2R-->2T
+2T-->33
+2T-->39
+2T-->2Y
+2T-->C
+2T-->31
+2T-->11
+2T-->1A
+33-->1C
+33-->35
+33-->37
+33-->39
+33-->20
+33-->1S
+39-->28
+3B-->2T
+3B-->C
+3B-->1A
+3D-->2I
+3D-->C
+3D-->1A
+3F-->3I
+3J-->C
+3K-->E
+3K-->13
+3M-->E
+3M-->3F
+3M-->3J
+3M-->2Q
+3M-->3K
+3M-->17
+3M-->1I
+3M-->1K
+3M-->1L
+3M-->1N
+3M-->C
+3O-->3P
+3O-->H
+3O-->3R
+3O-->1A
+3O-->3S
+3T-->3V

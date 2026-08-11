@@ -1,5 +1,5 @@
-// TanStack Query
-import { QueryClient } from "@tanstack/react-query";
+// TanStack
+import { QueryClient } from '@tanstack/react-query';
 
 /**
  * @description Single shared client — wrap the app with

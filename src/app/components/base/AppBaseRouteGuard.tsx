@@ -1,8 +1,8 @@
 // React Router DOM
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet } from 'react-router-dom';
 
-// Store
-import { useSessionStore } from "@/app/store/session.store";
+// Stores
+import { useSessionStore } from '@/app/store/session.store';
 
 /**
  * @description Layout-route guard — wrap protected routes with this element:

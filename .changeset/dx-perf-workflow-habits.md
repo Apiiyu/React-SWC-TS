@@ -1,12 +1,12 @@
 ---
-"react-swc-ddd-ts": minor
+'react-swc-ddd-ts': minor
 ---
 
 Optimize the starter across DX, performance, workflow, and architecture habits.
 
 **Developer experience**
 
-- Interactive module generator (`bun generate:module`) that scaffolds only the folders a module actually needs and auto-registers its router.
+- Interactive module generator (`bun run generate:module`) that scaffolds only the folders a module actually needs and auto-registers its router.
 - Storybook with a11y + docs addons and stories for the base components; `AppBaseErrorBoundary` global error boundary wired to the toast pipeline.
 - VSCode workspace settings, recommended extensions, and code snippets for the module conventions.
 

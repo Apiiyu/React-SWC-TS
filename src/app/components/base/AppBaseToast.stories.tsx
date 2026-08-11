@@ -1,13 +1,19 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+// Constants
+import { ToastPosition, ToastType } from '@/app/constants/toast.constant';
 
-import { AppBaseToast } from "./AppBaseToast";
-import { ToastPosition, ToastType } from "@/app/constants/toast.constant";
-import eventBus from "@/plugins/mitt/mitt";
+// Mitt
+import eventBus from '@/plugins/mitt/mitt';
+
+// Modules
+import { AppBaseToast } from './AppBaseToast';
+
+// Storybook
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta = {
-  title: "app/base/AppBaseToast",
+  title: 'app/base/AppBaseToast',
   component: AppBaseToast,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
@@ -29,32 +35,32 @@ interface IToastPayload {
 }
 
 const emitToast = (overrides: Partial<IToastPayload>) =>
-  eventBus.emit("toast", {
+  eventBus.emit('toast', {
     isOpen: true,
-    message: "Something happened",
+    message: 'Something happened',
     type: ToastType.SUCCESS,
     position: ToastPosition.TOP_RIGHT,
     ...overrides,
   });
 
 export const Hidden: Story = {
-  name: "No event yet (hidden)",
+  name: 'No event yet (hidden)',
 };
 
 export const Success: Story = {
   play: async () => {
-    emitToast({ type: ToastType.SUCCESS, message: "Saved successfully" });
+    emitToast({ type: ToastType.SUCCESS, message: 'Saved successfully' });
   },
 };
 
 export const Danger: Story = {
   play: async () => {
-    emitToast({ type: ToastType.DANGER, message: "Something went wrong" });
+    emitToast({ type: ToastType.DANGER, message: 'Something went wrong' });
   },
 };
 
 export const Warning: Story = {
   play: async () => {
-    emitToast({ type: ToastType.WARNING, message: "Check your input" });
+    emitToast({ type: ToastType.WARNING, message: 'Check your input' });
   },
 };

@@ -1,18 +1,16 @@
-// React Router DOM
-import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-
-// Plugins
-import "@/plugins/i18n/i18n";
-
+import '@/plugins/i18n/i18n';
 // vite-plugin-svg-icons sprite — without this, AppBaseSvg never has anything to reference
-import "virtual:svg-icons-register";
+import 'virtual:svg-icons-register';
+import './index.css';
 
-// Styles
-import "./index.css";
+// React
+import { createRoot } from 'react-dom/client';
 
-createRoot(document.getElementById("root")!).render(
+// React Router DOM
+import { BrowserRouter } from 'react-router-dom';
+
+createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <AppCommonEntryPoint />
-  </BrowserRouter>
+  </BrowserRouter>,
 );

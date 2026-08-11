@@ -1,19 +1,19 @@
 // Axios
-import axios, {
-  type InternalAxiosRequestConfig,
-  type AxiosInstance,
-} from "axios";
+import axios, { type InternalAxiosRequestConfig, type AxiosInstance } from 'axios';
 
 // Plugins
-import { handleHttpError } from "@/plugins/errorHandler/errorHandler";
+import { handleHttpError } from '@/plugins/errorHandler/errorHandler';
 
 // Schemas
-import { env } from "@/app/schemas/env.schema";
+import { env } from '@/app/schemas/env.schema';
 
+/**
+ * @description Shared HTTP transport configured with the validated public API base URL.
+ */
 const httpClient: AxiosInstance = axios.create({
-  baseURL: env.VITE_APP_BASE_API_URL ?? "/api",
+  baseURL: env.VITE_APP_BASE_API_URL ?? '/api',
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
@@ -23,7 +23,7 @@ const httpClient: AxiosInstance = axios.create({
 httpClient.interceptors.request.use(
   (configurations: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
     return configurations;
-  }
+  },
 );
 
 /**

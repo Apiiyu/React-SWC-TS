@@ -9,7 +9,11 @@
 # template teaches, so they warrant a closer look.
 
 /.dependency-cruiser.mjs
-/module.js
+/scripts/generate-module.ts
+/scripts/check-conventions.ts
+/scripts/sort-imports.ts
+/AGENT_RULES.md
+/CLAUDE.md
 /eslint.config.js
 /vite.config.ts
 /vitest.config.ts
